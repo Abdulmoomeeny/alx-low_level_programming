@@ -1,37 +1,26 @@
-#include <iostream>
-using namespace std;
 
-int opposite(int n);
+def largest_palindrome_product(n):
+    '''Find Largest Palindrome Product
+    '''
+ 
+    upper_limit = (10**(n))-1 
+    lower_limit = 1 + upper_limit//10  
+  
+    max_product = 0
+    for i in range(upper_limit,lower_limit-1, -1):
+     
+        for j in range(i,lower_limit-1,-1):
+            product = i * j
+            if (product < max_product):
+                break
+            number = product
+            reverse = 0
 
-int main() {
+            while (number != 0):
+                reverse = reverse * 10 + number % 10
+                number =number // 10
 
-  int greatest = 0;
+            if (product == reverse and product > max_product):
+                max_product = product
 
-	for (int i = 100; i <= 999; i++) {
-
-		for (int j = 100; j <= 999; j++) {
-
-			if (i*j==opposite(i*j) and i*j > greatest)
-
-				greatest = i*j;
-		}
-
-	}
-
-	cout << greatest;
-
-	return 0;
-}
-
-int opposite(int n) {
-
-	int m = 0;
-
-	while (n > 0) {
-
-		m = m * 10 + n % 10;
-		n = n / 10;
-	}
-
-	return m;
-}
+    return max_product
